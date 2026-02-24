@@ -30,12 +30,12 @@ body.light{background:#f1f5f9;color:#111;}
 
 /* MAIN */
 .main{flex:1;display:flex;flex-direction:column;padding:20px;overflow:hidden;}
-.header{display:flex;justify-content:space-between;align-items:center;}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
 .avatar{width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#9333ea);display:flex;justify-content:center;align-items:center;font-weight:600;}
 .menu-btn{display:none;background:none;border:none;color:inherit;cursor:pointer;}
 
 /* CHAT */
-.chat{flex:1;overflow-y:auto;margin:20px 0;display:flex;flex-direction:column;gap:14px;padding-right:10px;}
+.chat{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:14px;}
 .message{padding:14px 18px;border-radius:18px;max-width:70%;white-space:pre-wrap;line-height:1.5;animation:fadeIn 0.3s ease-in-out;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
 .user{background:linear-gradient(135deg,#3b82f6,#2563eb);align-self:flex-end;}
@@ -46,7 +46,7 @@ body.light{background:#f1f5f9;color:#111;}
 .input-area textarea{flex:1;padding:14px;border-radius:16px;border:1px solid rgba(255,255,255,0.1);resize:none;background:rgba(255,255,255,0.05);color:inherit;min-height:50px;max-height:120px;overflow-y:auto;}
 .input-area button{padding:14px 20px;border-radius:16px;border:none;background:linear-gradient(135deg,#3b82f6,#9333ea);color:white;cursor:pointer;font-weight:600;}
 
-/* MOBILE */
+/* MOBILE PORTRAIT */
 @media(max-width:768px){
   body{flex-direction:column;}
   #app{flex-direction:column;}
@@ -54,7 +54,7 @@ body.light{background:#f1f5f9;color:#111;}
   .sidebar.active{left:0;}
   .menu-btn{display:block;}
   .main{padding:15px;}
-  .chat{margin:15px 0;}
+  .chat{margin:0;}
   .input-area textarea{font-size:14px;}
   #loginBox{width:90%;padding:25px;}
   .chat-item span{max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;}
@@ -166,7 +166,7 @@ function renderChatList(){
   feather.replace();
 }
 
-function switchChat(id){activeChatId=id;renderChatList();renderMessages();}
+function switchChat(id){activeChatId=id;renderChatList();renderMessages();if(window.innerWidth<=768) toggleMobileSidebar();}
 function deleteChat(id){if(!confirm("Delete this chat?")) return; conversations=conversations.filter(c=>c.id!==id); if(activeChatId===id) activeChatId=conversations.length?conversations[0].id:null; saveConversations(); renderChatList(); renderMessages();}
 function editChat(id){let conv=conversations.find(c=>c.id===id); let newName=prompt("Enter new name:",conv.title); if(newName && newName.trim()!==""){conv.title=newName.trim(); saveConversations(); renderChatList();}}
 function clearAllChats(){if(!confirm("Delete all chats permanently?")) return; conversations=[]; activeChatId=null; saveConversations(); renderChatList(); renderMessages();}
