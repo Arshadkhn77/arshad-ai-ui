@@ -16,100 +16,128 @@
 }
 
 body {
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
     height: 100vh;
     display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s;
 }
 
-/* FULL SCREEN CONTAINER */
-.container {
-    width: 100%;
-    height: 100%;
+/* DARK MODE DEFAULT */
+body.dark {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: white;
+}
+
+/* LIGHT MODE */
+body.light {
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    color: #222;
+}
+
+/* LOGIN SCREEN */
+.login-container {
+    width: 350px;
     padding: 40px;
-    display: flex;
-    flex-direction: column;
-    backdrop-filter: blur(15px);
-}
-
-/* HEADER */
-.header {
-    text-align: center;
-    color: white;
-    margin-bottom: 25px;
-}
-
-.header h1 {
-    font-weight: 800;
-    font-size: 36px;
-}
-
-.header p {
-    font-weight: 300;
-    opacity: 0.8;
-}
-
-/* CHAT BOX */
-.chat-box {
-    flex: 1;
-    background: rgba(255,255,255,0.07);
     border-radius: 20px;
-    padding: 25px;
-    overflow-y: auto;
-    margin-bottom: 20px;
-    color: white;
-    font-size: 16px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    backdrop-filter: blur(20px);
+    background: rgba(255,255,255,0.1);
+    text-align: center;
 }
 
-/* INPUT AREA */
-.input-area {
-    display: flex;
-    gap: 15px;
-}
-
-input {
-    flex: 1;
-    padding: 15px;
-    border-radius: 12px;
+.login-container input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 10px;
     border: none;
-    outline: none;
-    font-size: 15px;
 }
 
-button {
-    padding: 15px 25px;
-    border-radius: 12px;
+.login-container button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
     border: none;
     cursor: pointer;
     background: #00c6ff;
     color: white;
     font-weight: 600;
-    transition: 0.3s ease;
 }
 
-button:hover {
-    background: #0072ff;
-    transform: scale(1.05);
+/* CHAT CONTAINER */
+.chat-container {
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    padding: 40px;
 }
 
-/* Scrollbar */
-.chat-box::-webkit-scrollbar {
-    width: 6px;
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
-.chat-box::-webkit-scrollbar-thumb {
-    background: rgba(255,255,255,0.3);
+.toggle-btn {
+    padding: 8px 15px;
     border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    background: #00c6ff;
+    color: white;
+    font-weight: 600;
+}
+
+.chat-box {
+    flex: 1;
+    background: rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 20px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.input-area {
+    display: flex;
+    gap: 10px;
+}
+
+.input-area input {
+    flex: 1;
+    padding: 15px;
+    border-radius: 12px;
+    border: none;
+}
+
+.input-area button {
+    padding: 15px 25px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    background: #0072ff;
+    color: white;
+    font-weight: 600;
 }
 </style>
 </head>
 
-<body>
+<body class="dark">
 
-<div class="container">
+<!-- LOGIN PAGE -->
+<div class="login-container" id="loginPage">
+    <h2>🔐 Login to Arshad AI</h2>
+    <input type="text" id="username" placeholder="Enter Username">
+    <input type="password" id="password" placeholder="Enter Password">
+    <button onclick="login()">Login</button>
+</div>
+
+<!-- CHAT PAGE -->
+<div class="chat-container" id="chatPage">
     <div class="header">
         <h1>🤖 Arshad AI</h1>
-        <p>Your Smart Fullscreen Assistant</p>
+        <button class="toggle-btn" onclick="toggleMode()">Toggle Mode</button>
     </div>
 
     <div class="chat-box" id="chatBox">
@@ -117,12 +145,40 @@ button:hover {
     </div>
 
     <div class="input-area">
-        <input type="text" id="userInput" placeholder="Type your message..." onkeydown="if(event.key==='Enter') sendMessage()">
+        <input type="text" id="userInput" placeholder="Type your message..." 
+        onkeydown="if(event.key==='Enter') sendMessage()">
         <button onclick="sendMessage()">Send</button>
     </div>
 </div>
 
 <script>
+
+/* SIMPLE LOGIN (Static Demo) */
+function login() {
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+
+    if(user === "admin" && pass === "1234") {
+        document.getElementById("loginPage").style.display = "none";
+        document.getElementById("chatPage").style.display = "flex";
+    } else {
+        alert("Invalid credentials! Use admin / 1234");
+    }
+}
+
+/* DARK LIGHT TOGGLE */
+function toggleMode() {
+    const body = document.body;
+    if(body.classList.contains("dark")) {
+        body.classList.remove("dark");
+        body.classList.add("light");
+    } else {
+        body.classList.remove("light");
+        body.classList.add("dark");
+    }
+}
+
+/* CHAT FUNCTION */
 function sendMessage() {
     const input = document.getElementById("userInput");
     const chatBox = document.getElementById("chatBox");
@@ -130,11 +186,12 @@ function sendMessage() {
     if (input.value.trim() === "") return;
 
     chatBox.innerHTML += "<p><strong>You:</strong> " + input.value + "</p>";
-    chatBox.innerHTML += "<p><strong>Arshad AI:</strong> This is a fullscreen static UI demo 🤖</p>";
+    chatBox.innerHTML += "<p><strong>Arshad AI:</strong> This is a static AI response 🤖</p>";
 
     input.value = "";
     chatBox.scrollTop = chatBox.scrollHeight;
 }
+
 </script>
 
 </body>
