@@ -33,7 +33,6 @@ body.light{background:#f1f5f9;color:#111;}
 .header{display:flex;justify-content:space-between;align-items:center;}
 .avatar{width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#9333ea);display:flex;justify-content:center;align-items:center;font-weight:600;}
 .menu-btn{display:none;background:none;border:none;color:inherit;cursor:pointer;}
-.settings-btn{background:none;border:none;color:inherit;cursor:pointer;}
 
 /* CHAT */
 .chat{flex:1;overflow-y:auto;margin:20px 0;display:flex;flex-direction:column;gap:14px;padding-right:10px;}
@@ -46,14 +45,6 @@ body.light{background:#f1f5f9;color:#111;}
 .input-area{display:flex;gap:12px;}
 .input-area textarea{flex:1;padding:14px;border-radius:16px;border:1px solid rgba(255,255,255,0.1);resize:none;background:rgba(255,255,255,0.05);color:inherit;min-height:50px;max-height:120px;overflow-y:auto;}
 .input-area button{padding:14px 20px;border-radius:16px;border:none;background:linear-gradient(135deg,#3b82f6,#9333ea);color:white;cursor:pointer;font-weight:600;}
-
-/* SETTINGS PANEL */
-.settings-panel{position:fixed;right:-320px;top:0;width:320px;height:100vh;background:rgba(15,23,42,0.95);backdrop-filter:blur(20px);padding:25px;transition:0.4s ease;z-index:2000;display:flex;flex-direction:column;gap:20px;}
-.settings-panel.active{right:0;}
-.settings-panel h3{font-weight:600;}
-.settings-panel button{padding:12px;border-radius:12px;border:none;cursor:pointer;font-weight:500;}
-.danger-btn{background:#ef4444;color:white;}
-.close-settings{align-self:flex-end;background:none;border:none;color:white;cursor:pointer;}
 
 /* MOBILE */
 @media(max-width:768px){
@@ -86,7 +77,6 @@ body.light{background:#f1f5f9;color:#111;}
 <!-- SIDEBAR -->
 <div class="sidebar" id="sidebar">
 <button onclick="newChat()"><i data-feather="plus"></i><span>New Chat</span></button>
-<button onclick="toggleTheme()"><i data-feather="moon"></i><span>Theme</span></button>
 <div class="chat-list" id="chatList"></div>
 <button onclick="logout()"><i data-feather="log-out"></i><span>Logout</span></button>
 </div>
@@ -96,10 +86,7 @@ body.light{background:#f1f5f9;color:#111;}
 <div class="header">
 <button class="menu-btn" onclick="toggleMobileSidebar()"><i data-feather="menu"></i></button>
 <h2>Arshad AI 🤖</h2>
-<div style="display:flex;gap:15px;align-items:center;">
-<button class="settings-btn" onclick="toggleSettings()"><i data-feather="settings"></i></button>
 <div class="avatar">AI</div>
-</div>
 </div>
 
 <div class="chat" id="chat"></div>
@@ -108,14 +95,6 @@ body.light{background:#f1f5f9;color:#111;}
 <button onclick="sendMessage()">Send</button>
 </div>
 </div>
-</div>
-
-<!-- SETTINGS -->
-<div class="settings-panel" id="settingsPanel">
-<button class="close-settings" onclick="toggleSettings()"><i data-feather="x"></i></button>
-<h3>Settings</h3>
-<button onclick="toggleTheme()">Toggle Theme</button>
-<button class="danger-btn" onclick="clearAllChats()">Clear All Chats</button>
 </div>
 
 <script>
@@ -147,8 +126,6 @@ function logout(){
 
 // SIDEBAR
 function toggleMobileSidebar(){document.getElementById("sidebar").classList.toggle("active");}
-function toggleTheme(){document.body.classList.toggle("light");}
-function toggleSettings(){document.getElementById("settingsPanel").classList.toggle("active");feather.replace();}
 
 // CHATS
 let conversations=[];
