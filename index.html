@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arshad AI</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    height: 100vh;
+    display: flex;
+}
+
+/* FULL SCREEN CONTAINER */
+.container {
+    width: 100%;
+    height: 100%;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    backdrop-filter: blur(15px);
+}
+
+/* HEADER */
+.header {
+    text-align: center;
+    color: white;
+    margin-bottom: 25px;
+}
+
+.header h1 {
+    font-weight: 800;
+    font-size: 36px;
+}
+
+.header p {
+    font-weight: 300;
+    opacity: 0.8;
+}
+
+/* CHAT BOX */
+.chat-box {
+    flex: 1;
+    background: rgba(255,255,255,0.07);
+    border-radius: 20px;
+    padding: 25px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    color: white;
+    font-size: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* INPUT AREA */
+.input-area {
+    display: flex;
+    gap: 15px;
+}
+
+input {
+    flex: 1;
+    padding: 15px;
+    border-radius: 12px;
+    border: none;
+    outline: none;
+    font-size: 15px;
+}
+
+button {
+    padding: 15px 25px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    background: #00c6ff;
+    color: white;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+button:hover {
+    background: #0072ff;
+    transform: scale(1.05);
+}
+
+/* Scrollbar */
+.chat-box::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chat-box::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.3);
+    border-radius: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>🤖 Arshad AI</h1>
+        <p>Your Smart Fullscreen Assistant</p>
+    </div>
+
+    <div class="chat-box" id="chatBox">
+        <p><strong>Arshad AI:</strong> Welcome Arshad 🚀</p>
+    </div>
+
+    <div class="input-area">
+        <input type="text" id="userInput" placeholder="Type your message..." onkeydown="if(event.key==='Enter') sendMessage()">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<script>
+function sendMessage() {
+    const input = document.getElementById("userInput");
+    const chatBox = document.getElementById("chatBox");
+
+    if (input.value.trim() === "") return;
+
+    chatBox.innerHTML += "<p><strong>You:</strong> " + input.value + "</p>";
+    chatBox.innerHTML += "<p><strong>Arshad AI:</strong> This is a fullscreen static UI demo 🤖</p>";
+
+    input.value = "";
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+</script>
+
+</body>
+</html>
