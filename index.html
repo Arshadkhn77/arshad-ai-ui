@@ -2,46 +2,47 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Arshad AI</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/feather-icons"></script>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
-html,body{height:100%;}
+
+html,body{
+  height:100%;
+}
+
 body{
   display:flex;
   background:radial-gradient(circle at top left,#0f172a,#020617);
   color:white;
-  transition:.3s;
 }
-body.light{background:#f1f5f9;color:#111;}
 
 /* LOGIN */
 #loginBox{
   display:flex;
   flex-direction:column;
   margin:auto;
-  width:100%;
+  width:90%;
   max-width:360px;
-  padding:35px;
+  padding:30px;
   background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(30px);
-  border-radius:24px;
-  gap:18px;
-  box-shadow:0 20px 50px rgba(0,0,0,0.4);
+  backdrop-filter:blur(20px);
+  border-radius:20px;
+  gap:15px;
 }
 #loginBox input{
-  padding:14px;
-  border-radius:14px;
+  padding:12px;
+  border-radius:12px;
   border:1px solid rgba(255,255,255,0.1);
   background:rgba(255,255,255,0.05);
-  color:inherit;
+  color:white;
 }
 #loginBox button{
-  padding:14px;
-  border-radius:14px;
+  padding:12px;
+  border-radius:12px;
   border:none;
   background:linear-gradient(135deg,#3b82f6,#9333ea);
   color:white;
@@ -54,69 +55,78 @@ body.light{background:#f1f5f9;color:#111;}
   display:none;
   flex:1;
   width:100%;
-  height:100vh;
-  overflow:hidden;
+  height:100dvh; /* 🔥 mobile fix */
 }
 
 /* SIDEBAR */
 .sidebar{
-  width:260px;
+  width:240px;
   background:rgba(255,255,255,0.04);
   backdrop-filter:blur(20px);
-  padding:20px;
+  padding:15px;
   display:flex;
   flex-direction:column;
-  border-right:1px solid rgba(255,255,255,0.05);
   overflow-y:auto;
 }
 .sidebar button{
   background:none;
   border:none;
   color:inherit;
-  display:flex;
-  gap:12px;
-  align-items:center;
-  padding:12px;
-  border-radius:12px;
-  cursor:pointer;
-  transition:.3s;
-}
-.sidebar button:hover{background:rgba(255,255,255,0.1);}
-
-.chat-list{flex:1;margin-top:20px;overflow-y:auto;}
-.chat-item{
   padding:10px;
   border-radius:10px;
+  cursor:pointer;
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+.sidebar button:hover{background:rgba(255,255,255,0.1);}
+.chat-list{flex:1;margin-top:15px;}
+.chat-item{
+  padding:8px;
+  border-radius:8px;
   margin-bottom:6px;
   background:rgba(255,255,255,0.05);
   cursor:pointer;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
   font-size:14px;
 }
-.chat-item:hover{background:rgba(255,255,255,0.15);}
-.active-chat{background:linear-gradient(135deg,#3b82f6,#9333ea);}
+.chat-item.active{background:linear-gradient(135deg,#3b82f6,#9333ea);}
 
 /* MAIN */
 .main{
   flex:1;
   display:flex;
   flex-direction:column;
-  padding:20px;
+  padding:10px 15px;
   height:100%;
 }
+
+/* HEADER smaller */
 .header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:10px;
+  min-height:45px;
 }
-.menu-btn{display:none;background:none;border:none;color:inherit;cursor:pointer;}
+.header h2{
+  font-size:18px;
+}
+.menu-btn{
+  display:none;
+  background:none;
+  border:none;
+  color:white;
+  cursor:pointer;
+}
 .avatar{
-  width:45px;height:45px;border-radius:50%;
+  width:38px;
+  height:38px;
+  border-radius:50%;
   background:linear-gradient(135deg,#3b82f6,#9333ea);
-  display:flex;justify-content:center;align-items:center;font-weight:600;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:14px;
+  font-weight:600;
 }
 
 /* CHAT */
@@ -125,38 +135,49 @@ body.light{background:#f1f5f9;color:#111;}
   overflow-y:auto;
   display:flex;
   flex-direction:column;
-  gap:14px;
+  gap:12px;
+  padding:10px 0;
 }
 .message{
-  padding:14px 18px;
-  border-radius:18px;
-  max-width:75%;
+  padding:12px 16px;
+  border-radius:16px;
+  max-width:80%;
   white-space:pre-wrap;
+  font-size:14px;
 }
-.user{background:linear-gradient(135deg,#3b82f6,#2563eb);align-self:flex-end;}
-.bot{background:rgba(255,255,255,0.08);align-self:flex-start;}
+.user{
+  background:linear-gradient(135deg,#3b82f6,#2563eb);
+  align-self:flex-end;
+}
+.bot{
+  background:rgba(255,255,255,0.08);
+  align-self:flex-start;
+}
 
 /* INPUT */
-.input-area{display:flex;gap:10px;margin-top:10px;}
+.input-area{
+  display:flex;
+  gap:8px;
+  padding-top:8px;
+}
 .input-area textarea{
   flex:1;
-  padding:14px;
-  border-radius:16px;
-  border:1px solid rgba(255,255,255,0.1);
   resize:none;
+  border-radius:14px;
+  padding:10px;
+  border:1px solid rgba(255,255,255,0.1);
   background:rgba(255,255,255,0.05);
-  color:inherit;
-  min-height:48px;
+  color:white;
+  font-size:14px;
   max-height:120px;
   overflow-y:auto;
 }
 .input-area button{
-  padding:14px 20px;
-  border-radius:16px;
+  padding:10px 14px;
+  border-radius:14px;
   border:none;
   background:linear-gradient(135deg,#3b82f6,#9333ea);
   color:white;
-  font-weight:600;
   cursor:pointer;
 }
 
@@ -165,22 +186,19 @@ body.light{background:#f1f5f9;color:#111;}
   #app{flex-direction:column;}
   .sidebar{
     position:fixed;
-    left:-260px;
+    left:-240px;
     top:0;
     height:100%;
     z-index:1000;
-    transition:.3s;
+    transition:0.3s;
   }
   .sidebar.active{left:0;}
   .menu-btn{display:block;}
-  .main{padding:15px;}
-  .message{max-width:85%;}
 }
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
 <div id="loginBox">
 <h2>Welcome to Arshad AI 🚀</h2>
 <input type="email" id="email" placeholder="Email">
@@ -188,7 +206,6 @@ body.light{background:#f1f5f9;color:#111;}
 <button onclick="login()">Login</button>
 </div>
 
-<!-- APP -->
 <div id="app">
 
 <div class="sidebar" id="sidebar">
@@ -216,156 +233,119 @@ body.light{background:#f1f5f9;color:#111;}
 <script>
 feather.replace();
 
-/* LOGIN */
 function login(){
-  const email=document.getElementById("email").value;
-  const pass=document.getElementById("password").value;
-  if(email==="admin@arshad.ai" && pass==="1234"){
-    localStorage.setItem("currentUser",email);
-    document.getElementById("loginBox").style.display="none";
-    document.getElementById("app").style.display="flex";
-    loadConversations();
-  }else alert("Invalid credentials");
+  if(email.value==="admin@arshad.ai" && password.value==="1234"){
+    localStorage.setItem("user","admin");
+    loginBox.style.display="none";
+    app.style.display="flex";
+    loadChats();
+  } else alert("Invalid credentials");
 }
 
-if(localStorage.getItem("currentUser")){
-  document.getElementById("loginBox").style.display="none";
-  document.getElementById("app").style.display="flex";
-  loadConversations();
+if(localStorage.getItem("user")){
+  loginBox.style.display="none";
+  app.style.display="flex";
+  loadChats();
 }
 
 function logout(){
-  localStorage.removeItem("currentUser");
+  localStorage.removeItem("user");
   location.reload();
 }
 
-/* SIDEBAR */
 function toggleSidebar(){
-  document.getElementById("sidebar").classList.toggle("active");
+  sidebar.classList.toggle("active");
 }
 
-/* CHAT SYSTEM */
-let conversations=[];
-let activeChatId=null;
+let chats=[];
+let active=null;
 
-function saveConversations(){
-  localStorage.setItem("conv_"+localStorage.getItem("currentUser"),JSON.stringify(conversations));
+function saveChats(){
+  localStorage.setItem("chats",JSON.stringify(chats));
 }
 
-function loadConversations(){
-  let saved=localStorage.getItem("conv_"+localStorage.getItem("currentUser"));
-  if(saved) conversations=JSON.parse(saved);
-  if(conversations.length) activeChatId=conversations[0].id;
+function loadChats(){
+  let saved=localStorage.getItem("chats");
+  if(saved) chats=JSON.parse(saved);
+  if(chats.length) active=chats[0].id;
   renderChatList();
   renderMessages();
 }
 
 function newChat(){
-  let id=Date.now().toString();
-  conversations.unshift({id:id,title:"New Chat",messages:[]});
-  activeChatId=id;
-  saveConversations();
+  let id=Date.now();
+  chats.unshift({id:id,title:"New Chat",messages:[]});
+  active=id;
+  saveChats();
   renderChatList();
   renderMessages();
 }
 
 function renderChatList(){
-  let list=document.getElementById("chatList");
-  list.innerHTML="";
-  conversations.forEach(c=>{
+  chatList.innerHTML="";
+  chats.forEach(c=>{
     let div=document.createElement("div");
-    div.className="chat-item "+(c.id===activeChatId?"active-chat":"");
-    div.innerHTML=`<span onclick="switchChat('${c.id}')">${c.title}</span>
-    <i data-feather="trash-2" onclick="deleteChat('${c.id}')"></i>`;
-    list.appendChild(div);
+    div.className="chat-item "+(c.id===active?"active":"");
+    div.innerText=c.title;
+    div.onclick=()=>{active=c.id;renderChatList();renderMessages();if(window.innerWidth<768)toggleSidebar();};
+    chatList.appendChild(div);
   });
-  feather.replace();
-}
-
-function switchChat(id){
-  activeChatId=id;
-  renderChatList();
-  renderMessages();
-  if(window.innerWidth<768) toggleSidebar();
-}
-
-function deleteChat(id){
-  conversations=conversations.filter(c=>c.id!==id);
-  if(activeChatId===id) activeChatId=conversations.length?conversations[0].id:null;
-  saveConversations();
-  renderChatList();
-  renderMessages();
 }
 
 function renderMessages(){
-  let chat=document.getElementById("chat");
   chat.innerHTML="";
-  let conv=conversations.find(c=>c.id===activeChatId);
-  if(!conv) return;
-  conv.messages.forEach(m=>addMessage(m.role,m.content));
+  let c=chats.find(x=>x.id===active);
+  if(!c) return;
+  c.messages.forEach(m=>addMessage(m.role,m.text));
+  chat.scrollTop=chat.scrollHeight;
 }
 
 function addMessage(role,text){
   let div=document.createElement("div");
   div.className="message "+role;
   div.innerText=text;
-  document.getElementById("chat").appendChild(div);
-  chat.scrollTop=chat.scrollHeight;
+  chat.appendChild(div);
 }
 
 function sendMessage(){
-  let input=document.getElementById("userInput");
-  let text=input.value.trim();
-  if(!text||!activeChatId) return;
+  let text=userInput.value.trim();
+  if(!text||!active) return;
+  let c=chats.find(x=>x.id===active);
 
-  let conv=conversations.find(c=>c.id===activeChatId);
-
-  if(conv.messages.length===0){
-    conv.title=text.substring(0,25)+"...";
-    renderChatList();
+  if(c.messages.length===0){
+    c.title=text.substring(0,20)+"...";
   }
 
-  conv.messages.push({role:"user",content:text});
+  c.messages.push({role:"user",text:text});
   addMessage("user",text);
-  input.value="";
-  autoResize();
-  saveConversations();
+  userInput.value="";
+  saveChats();
 
-  let reply="Hello Arshad 🚀 I am working perfectly on mobile & desktop now!";
+  let reply="Hello Arshad 🚀 Your mobile UI is now perfectly optimized!";
   let botDiv=document.createElement("div");
   botDiv.className="message bot";
-  document.getElementById("chat").appendChild(botDiv);
+  chat.appendChild(botDiv);
 
   let i=0;
-  function stream(){
+  function type(){
     if(i<reply.length){
-      botDiv.innerText+=reply.charAt(i);
-      i++;
+      botDiv.innerText+=reply[i++];
       chat.scrollTop=chat.scrollHeight;
-      setTimeout(stream,15);
+      setTimeout(type,15);
     }else{
-      conv.messages.push({role:"bot",content:reply});
-      saveConversations();
+      c.messages.push({role:"bot",text:reply});
+      saveChats();
     }
   }
-  stream();
+  type();
 }
 
-/* ENTER SEND */
-document.getElementById("userInput").addEventListener("keydown",function(e){
+userInput.addEventListener("keydown",e=>{
   if(e.key==="Enter"&&!e.shiftKey){
     e.preventDefault();
     sendMessage();
   }
 });
-
-/* AUTO RESIZE TEXTAREA */
-function autoResize(){
-  const ta=document.getElementById("userInput");
-  ta.style.height="auto";
-  ta.style.height=ta.scrollHeight+"px";
-}
-document.getElementById("userInput").addEventListener("input",autoResize);
 </script>
 
 </body>
